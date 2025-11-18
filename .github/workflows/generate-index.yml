@@ -40,7 +40,6 @@ jobs:
           with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
               f.writelines(lines)
           EOF
-
       - name: Commit and Push index.md
         env:
           MY_PAT: ${{ secrets.MY_PAT }}
@@ -50,5 +49,5 @@ jobs:
           git add index.md
           git commit -m "Automatisch generierter PDF-Index" || echo "Keine Änderungen"
 
-          REMOTE_URL="https://x-access-token:${MY_PAT}@github.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025.git"
-          git push "$REMOTE_URL" HEAD:main
+          git remote set-url origin https://x-access-token:${MY_PAT}@github.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025.git
+          git push origin HEAD:main
