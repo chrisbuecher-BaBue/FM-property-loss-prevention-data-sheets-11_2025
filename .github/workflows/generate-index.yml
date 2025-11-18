@@ -1,54 +1,20 @@
-name: Generate PDF Index
+# generate_index.py
 
-on:
-  push:
-    paths:
-      - '*.pdf'
-  workflow_dispatch:
+import os
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+REPO_URL = "https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main"
+PDF_DIR = "."
+OUTPUT_FILE = "index.md"
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+pdf_files = [f for f in sorted(os.listdir(PDF_DIR)) if f.lower().endswith(".pdf")]
+if not pdf_files:
+    print("Keine PDF-Dateien im Hauptverzeichnis gefunden. Index wird nicht erstellt.")
+    exit(0)
 
-      - name: Generate index.md
-        run: |
-          python3 <<EOF
-          import os
+lines = ["# 📄 PDF-Index\n", "\nHier sind alle verfügbaren PDF-Dateien:\n"]
+for filename in pdf_files:
+    raw_url = f"{REPO_URL}/{filename}"
+    lines.append(f"- [{filename}]({raw_url})\n")
 
-          REPO_URL = "https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main"
-          PDF_DIR = "."
-          OUTPUT_FILE = "index.md"
-
-          pdf_files = [f for f in sorted(os.listdir(PDF_DIR)) if f.lower().endswith(".pdf")]
-          if not pdf_files:
-              print("Keine PDF-Dateien im Hauptverzeichnis gefunden. Index wird nicht erstellt.")
-              exit(0)
-
-          lines = ["# 📄 PDF-Index\\n", "\\nHier sind alle verfügbaren PDF-Dateien:\\n"]
-          for filename in pdf_files:
-              raw_url = f"{REPO_URL}/{filename}"
-              lines.append(f"- [{filename}]({raw_url})\\n")
-
-          with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-              f.writelines(lines)
-          EOF
-
-      - name: Commit and Push index.md
-        env:
-          MY_PAT: ${{ secrets.MY_PAT }}
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add index.md
-          git commit -m "Automatisch generierter PDF-Index" || echo "Keine Änderungen"
-
-          git remote set-url origin https://x-access-token:${MY_PAT}@github.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025.git
-          git push origin HEAD:main
+with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    f.writelines(lines)
