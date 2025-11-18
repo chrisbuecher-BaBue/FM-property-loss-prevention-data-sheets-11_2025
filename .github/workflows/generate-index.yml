@@ -43,12 +43,12 @@ jobs:
 
       - name: Commit and Push index.md
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MY_PAT: ${{ secrets.MY_PAT }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add index.md
           git commit -m "Automatisch generierter PDF-Index" || echo "Keine Änderungen"
 
-          REMOTE_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025.git"
+          REMOTE_URL="https://x-access-token:${MY_PAT}@github.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025.git"
           git push "$REMOTE_URL" HEAD:main
