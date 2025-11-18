@@ -24,7 +24,7 @@ jobs:
           import os
 
           REPO_URL = "https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main"
-          PDF_DIR = "."  # Hauptverzeichnis
+          PDF_DIR = "."
           OUTPUT_FILE = "index.md"
 
           pdf_files = [f for f in sorted(os.listdir(PDF_DIR)) if f.lower().endswith(".pdf")]
@@ -42,11 +42,13 @@ jobs:
           EOF
 
       - name: Commit and Push index.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add index.md
           git commit -m "Automatisch generierter PDF-Index" || echo "Keine Änderungen"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          REMOTE_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025.git"
+          git push "$REMOTE_URL" HEAD:main
