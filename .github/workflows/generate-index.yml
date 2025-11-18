@@ -41,7 +41,7 @@ jobs:
               f.writelines(lines)
           EOF
 
-            - name: Commit and Push index.md
+      - name: Commit and Push index.md
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
