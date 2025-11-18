@@ -1,0 +1,45 @@
+name: Generate PDF Index
+
+on:
+  push:
+    paths:
+      - 'pdfs/*.pdf'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Generate index.md
+        run: |
+          python3 <<EOF
+          import os
+
+          REPO_URL = "https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main"
+          PDF_DIR = "pdfs"
+          OUTPUT_FILE = "index.md"
+
+          lines = ["# 📄 PDF-Index\\n", "\\nHier sind alle verfügbaren PDF-Dateien:\\n"]
+          for filename in sorted(os.listdir(PDF_DIR)):
+              if filename.lower().endswith(".pdf"):
+                  raw_url = f"{REPO_URL}/{PDF_DIR}/{filename}"
+                  lines.append(f"- [{filename}]({raw_url})\\n")
+          with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+              f.writelines(lines)
+          EOF
+
+      - name: Commit and Push index.md
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add index.md
+          git commit -m "Automatisch generierter PDF-Index" || echo "Keine Änderungen"
+          git push
