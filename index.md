@@ -1,12 +1,6 @@
 # 📄 PDF-Index
 
 Hier sind alle verfügbaren PDF-Dateien:
-- [FMDS0532.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0532.pdf)
-- [FMDS0533.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0533.pdf)
-- [FMDS0540.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0540.pdf)
-- [FMDS0548.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0548.pdf)
-- [FMDS0605.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0605.pdf)
-- [FMDS0609.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0609.pdf)
 - [FMDS0612.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0612.pdf)
 - [FMDS0614.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0614.pdf)
 - [FMDS0617.pdf](https://raw.githubusercontent.com/chrisbuecher-BaBue/FM-property-loss-prevention-data-sheets-11_2025/main/FMDS0617.pdf)
